@@ -1,11 +1,8 @@
-import cv2
 import numpy as np
 from tkinter import *
 import tkinter.messagebox
 import queue
 import copy
-import time
-from functools import partial
 
 #node class used for building tree
 class Node():
@@ -332,7 +329,6 @@ def buildAdaptiveTree():#testing button and stuff
     #check to see if tree exceeds height of 4
     if rootNode.height() > 4:
         tkinter.messagebox.showinfo("Invalid Input", "Sorry. The height of the tree exceeds 4, so tree cannot be built.")
-        canvas.pack_forget()#delete tree
         return -1
     
     canvas.pack()#make canvas display
@@ -356,7 +352,7 @@ def addNodeToTreeAdaptive():
 
     #check to see if input is  1 character
     if len(s) != 1:
-        tkinter.messagebox.showinfo("Invalid Input", "Please input 1 character.")
+        tkinter.messagebox.showinfo("Invalid Input", "Please input 1 and only 1 character.")
         return -1
 
     TREE.insert(s)#encode the character
@@ -417,6 +413,9 @@ def addNodeToTree():
     createTable(codes)#draw table
     PREV = prevString#save character list
 
+def clearCanvas():
+    canvas.forget()
+
 ########
 #START HERE
 ########
@@ -463,12 +462,14 @@ entry2.pack(side=LEFT,pady=5,padx=10)
 button1 = Button(buttonFrame, text="Build Huffman Tree",command= buildTree)
 button1.pack(side=LEFT, pady=10,padx=7)
 button2 = Button(button2Frame, text="Build Adaptive Huffman Tree",command= buildAdaptiveTree)
-button2.pack(side=LEFT, pady=10)
+button2.pack(side=LEFT, pady=10, padx=7)
 button3 = Button(buttonFrame, text="Add Character(s)",command=addNodeToTree)
 button3.pack(side=LEFT, pady=10, padx=7)
 button4 = Button(button2Frame, text="Add Character",command=addNodeToTreeAdaptive)
 button4.pack(side=LEFT, pady=10, padx=7)
-
-
+clearButton = Button(buttonFrame, text="Clear Canvas", command=clearCanvas)
+clearButton.pack(side=LEFT, pady=10, padx=7)
+clearButton2 = Button(button2Frame, text="Clear Canvas", command=clearCanvas)
+clearButton2.pack(side=LEFT, pady=10, padx=7)
 
 root.mainloop()#run window
